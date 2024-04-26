@@ -20,6 +20,16 @@ df = pd.read_csv("shakespeare_plays.csv", sep=",")
 df.head()
 
 ###############################
+# Choosing play
+##############################
+
+df["play_name"].value_counts()
+
+df = df[df["play_name"] == "Julius Caesar"]
+
+df.head()
+
+###############################
 # Normalizing Case Folding
 ###############################
 
@@ -29,13 +39,13 @@ df['text'] = df['text'].str.lower()
 # Punctuations
 ###############################
 
-df['text'] = df['text'].str.replace('[^\w\s]', ' ',regex=True)
+df['text'] = df['text'].str.replace('[^\w\s]', ' ', regex=True)
 
 ###############################
 # Numbers
 ###############################
 
-df['text'] = df['text'].str.replace('\d', '',regex=True)
+df['text'] = df['text'].str.replace('\d', '', regex=True)
 
 ###############################
 # Stopwords
@@ -76,7 +86,6 @@ tf = df["text"].apply(lambda x: pd.value_counts(x.split(" "))).sum(axis=0).reset
 tf.columns = ["words", "tf"]
 
 tf.sort_values("tf", ascending=False)
-
 
 ###############################
 # Wordcloud
